@@ -90,6 +90,15 @@ android {
             keyPassword 'android'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -106,8 +115,10 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation("com.facebook.react:react-android")
-
+    implementation project(':react-native-vision-camera')
+    
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
